@@ -25,7 +25,7 @@ class DeitModel{
     Deits.add(
       DeitModel(
         name: 'honey pancakes',
-        iconpath: 'assetsa/icons/honey-pancakes.svg',
+        iconpath: 'assets/icons/honey-pancakes.svg',
         calorie: '10000kcal',
         duration: '20 mins',
         level: 'easy',
@@ -35,7 +35,7 @@ class DeitModel{
     Deits.add(
       DeitModel(
         name: 'canai bread',
-        iconpath: 'assetsa/icons/honey-pancakes.svg',
+        iconpath: 'assets/icons/canai-bread.svg',
         calorie: '100kcal',
         duration: '120 mins',
         level: 'easy',

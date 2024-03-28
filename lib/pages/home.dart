@@ -1,5 +1,6 @@
 import 'package:flut/model/catagoryModel.dart';
 import 'package:flut/model/deitRecomendation.dart';
+import 'package:flut/model/popular.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List <CatagoryModel> catagories=[];
   List <DeitModel> Deits=[];
+  List <populars> popularDiets=[];
 
   void getCatagories(){
     catagories= CatagoryModel.getCatagories();
@@ -23,20 +25,170 @@ class _HomePageState extends State<HomePage> {
     Deits=DeitModel.getDeits();
   }
 
+  void getpopulars(){
+    popularDiets=populars.getpopulars();
+  }
+
   @override
   Widget build(BuildContext context) {
     getCatagories();
     getDeits();
+    getpopulars();
     return Scaffold(
       appBar: appBar(),
-      body:  Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      body:  ListView(
         children: [
           search(),
-          catagorySection()
+          catagorySection(),
+          Recomendation(),
+           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 20,top: 20,bottom: 20),
+                child: Text(
+                  'popular',
+                  style: TextStyle(
+                    color: Colors.purple,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600
+                )
+                ),
+              ),
+              ListView.separated(
+                shrinkWrap: true,
+                itemBuilder: (context, index){
+                  return Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.white,
+                      boxShadow:  [
+                        BoxShadow(
+                        blurRadius:40,
+                        color: Colors.purple.withOpacity(0.3),
+                        offset:const Offset(0, 10),
+                        spreadRadius: 0
+                         )
+                         ]
+                    ),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(popularDiets[index].iconpath),
+                        Column(
+                          children: [
+                            Text(
+                              popularDiets[index].name ,
+                              style: TextStyle(
+                            color: Colors.black.withOpacity(0.4),
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400
+
+                        )
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+
+                  );
+
+                },
+                separatorBuilder:(context,index)=>const SizedBox(height: 20,),
+                padding:const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  bottom: 20
+                ),
+                itemCount: popularDiets.length)
+            ],
+          )
+          
         ],
       ),
     );
+  }
+
+  Column Recomendation() {
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(top:20,left: 20 ,bottom: 20),
+              child: Text(
+                'Deit Recomendation',
+                 style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+                )
+              ),
+            ),
+            Container(
+              height: 230,
+              child:ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount:Deits.length,
+                padding: const EdgeInsets.only(left: 20,right: 20),
+                separatorBuilder: (context,index)=>const SizedBox(width: 20,),
+                itemBuilder: (context, index){
+                  return Container(
+                    width: 200,
+                    decoration:BoxDecoration(
+                      color: Colors.amber,
+                      borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Column(
+                      mainAxisAlignment:MainAxisAlignment.spaceEvenly,
+                      children: [
+                      SvgPicture.asset(Deits[index].iconpath),
+                      Text(
+                        Deits[index].name,
+                        style:const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black
+                        ),
+                      ),
+                      Text(
+                        Deits[index].level + '|' + Deits[index].duration + '|' + Deits[index].calorie,
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.4),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400
+
+                        ),
+                      ),
+                      Container(
+                        height: 40,
+                        width: 130,
+                        decoration:BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          gradient: LinearGradient(
+                            colors: [
+                              Deits[index].viewIsSelected?Color.fromARGB(178, 27, 75, 233): Colors.transparent,
+                              Deits[index].viewIsSelected?Color.fromARGB(221, 34, 124, 154):Colors.transparent
+                            ]
+                            )
+                        ),
+                        child:const Center(
+                          child: Text(
+                            'view',
+                            style: TextStyle(
+                              color: Colors.white
+
+                            ),
+                          ),
+                        ),
+                      )
+                      ]
+                    ),
+                  );
+                },
+                  
+              )
+            )
+          ],
+        );
   }
 
   Column catagorySection() {
@@ -60,10 +212,12 @@ class _HomePageState extends State<HomePage> {
                   itemCount: catagories.length,
                   scrollDirection: Axis.horizontal,
                   padding:const EdgeInsets.only(left: 20,right:20),
-                  separatorBuilder: (context, index) =>const SizedBox(width: 25,) ,
+                  separatorBuilder: (context, index) =>
+                  const SizedBox(width: 25,) ,
                   itemBuilder: (context, index){
                     return Container(
                       width: 100,
+                      padding:const EdgeInsets.only(bottom: 20),
                       decoration: BoxDecoration(
                         color: catagories[index].boxColor,
                         borderRadius: BorderRadius.circular(12)
