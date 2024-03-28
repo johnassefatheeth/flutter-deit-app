@@ -9,7 +9,65 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
+      body:  Column(
+        children: [
+          search()
+        ],
+      ),
     );
+  }
+
+  Container search() {
+    return Container(
+          margin:const EdgeInsets.only(left:25,right:25,top: 15),
+          decoration: BoxDecoration(
+            boxShadow:[ 
+              BoxShadow(
+              color: Colors.purple.withOpacity(0.31),
+              blurRadius: 40,
+              spreadRadius: 0.0
+            )
+            ]
+          ),
+          child: TextField(
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding:const  EdgeInsets.all(15),
+              hintText: 'search pancake',
+              hintStyle: const TextStyle(
+                color: Colors.purple,
+                
+                ),
+              prefixIcon:Padding(
+                padding:const EdgeInsets.all(12),
+                child:SvgPicture.asset('assets/icons/Search.svg',color: Colors.purple,) ,
+              ) ,
+              suffixIcon:Container(
+                width: 100,
+                child: IntrinsicHeight(
+                  child:Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const VerticalDivider(
+                      color: Colors.purple,
+                      thickness: 0.1,
+                    ),
+                    Padding(
+                      padding:const EdgeInsets.all(12),
+                      child:SvgPicture.asset('assets/icons/Filter.svg',color: Colors.purple,) ,
+                    ),
+                  ],
+                  )
+                ),
+              ) ,
+              border:OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+                borderSide: BorderSide.none
+              ),
+            ),
+          ),
+        );
   }
 
   AppBar appBar() {
