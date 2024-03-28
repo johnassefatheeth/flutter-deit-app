@@ -73,21 +73,42 @@ class _HomePageState extends State<HomePage> {
                          ]
                     ),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         SvgPicture.asset(popularDiets[index].iconpath),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               popularDiets[index].name ,
-                              style: TextStyle(
-                            color: Colors.black.withOpacity(0.4),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400
+                              style:const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black
+                              ),
+                              
+                            ),
+                            Text(
+                         popularDiets[index].level + '|' + popularDiets[index].duration + '|' + popularDiets[index].calorie,
+                        style: TextStyle(
+                          color: Colors.black.withOpacity(0.4),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400
 
-                        )
-                            )
+                        ),
+                      )
+
                           ],
+                        ),
+                        GestureDetector(
+                          onTap: (){},
+                          child:SvgPicture.asset('assets/iocns/button.svg',
+                        width: 30,
+                        height: 30,
                         )
+                        )
+
+                        
                       ],
                     ),
 
