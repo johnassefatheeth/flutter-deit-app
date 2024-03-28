@@ -10,8 +10,36 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: appBar(),
       body:  Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          search()
+          search(),
+           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(left: 20,bottom: 20),
+                child: Text(
+                  'catagory',
+                  style: TextStyle(
+                    color: Colors.purple,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
+              ),
+                Container(
+                  height: 150,
+                  color: Colors.blue,
+                  child: ListView.builder(
+                    itemBuilder: (context, index){
+                      return Container();
+                    } ,
+                    ),
+                  ),
+                
+              
+            ],
+          )
         ],
       ),
     );
@@ -19,7 +47,7 @@ class HomePage extends StatelessWidget {
 
   Container search() {
     return Container(
-          margin:const EdgeInsets.only(left:25,right:25,top: 15),
+          margin:const EdgeInsets.only(left:25,right:25,top: 15,bottom: 20),
           decoration: BoxDecoration(
             boxShadow:[ 
               BoxShadow(
