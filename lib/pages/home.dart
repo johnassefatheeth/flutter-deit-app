@@ -1,4 +1,5 @@
 import 'package:flut/model/catagoryModel.dart';
+import 'package:flut/model/deitRecomendation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,49 +13,95 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List <CatagoryModel> catagories=[];
+  List <DeitModel> Deits=[];
 
   void getCatagories(){
     catagories= CatagoryModel.getCatagories();
   }
 
+  void getDeits(){
+    Deits=DeitModel.getDeits();
+  }
+
   @override
   Widget build(BuildContext context) {
+    getCatagories();
+    getDeits();
     return Scaffold(
       appBar: appBar(),
       body:  Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           search(),
-           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 20,bottom: 20),
-                child: Text(
-                  'catagory',
-                  style: TextStyle(
-                    color: Colors.purple,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600
-                  ),
-                ),
-              ),
-                Container(
-                  height: 150,
-                  color: Colors.blue,
-                  child: ListView.builder(
-                    itemBuilder: (context, index){
-                      return Container();
-                    } ,
-                    ),
-                  ),
-                
-              
-            ],
-          )
+          catagorySection()
         ],
       ),
     );
+  }
+
+  Column catagorySection() {
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 20,bottom: 20),
+              child: Text(
+                'catagory',
+                style: TextStyle(
+                  color: Colors.purple,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600
+                ),
+              ),
+            ),
+              Container(
+                height: 120,
+                child: ListView.separated(
+                  itemCount: catagories.length,
+                  scrollDirection: Axis.horizontal,
+                  padding:const EdgeInsets.only(left: 20,right:20),
+                  separatorBuilder: (context, index) =>const SizedBox(width: 25,) ,
+                  itemBuilder: (context, index){
+                    return Container(
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: catagories[index].boxColor,
+                        borderRadius: BorderRadius.circular(12)
+                      ),
+                    child:Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          width: 50,
+                          height: 50,
+                          decoration:const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(catagories[index].iconpath),
+                          ),
+      
+                        ),
+                        Text(
+                          catagories[index].name,
+                          style:const TextStyle(
+                            fontWeight:FontWeight.w400,
+                            color: Colors.white,
+                            fontSize: 14
+                          )
+                        )
+                      ],
+                    ),
+                    );
+                  } ,
+                  ),
+                ),
+              
+            
+          ],
+        );
   }
 
   Container search() {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
  class CatagoryModel{
-  String? name;
-  String? iconpath;
-  Color? boxColor;  
+  String name;
+  String iconpath;
+  Color boxColor;  
 
 
   CatagoryModel({
@@ -27,7 +27,7 @@ import 'package:flutter/material.dart';
     Catagories.add(
       CatagoryModel(
       name: 'lunch', 
-      iconpath: 'assets/icons/panckakes.svg', 
+      iconpath: 'assets/icons/pancakes.svg', 
       boxColor: Color.fromARGB(182, 69, 220, 218)
       )
     );
